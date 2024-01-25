@@ -9,10 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-#variables:
- # solution: '**/*.sln'
-  #buildPlatform: 'Any CPU'
-  #buildConfiguration: 'Release'
+variables:
+- name: buildConfiguration
+  value: 'Release'
 
 steps:
 
@@ -26,11 +25,13 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.sln'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
