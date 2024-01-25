@@ -9,11 +9,12 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+#variables:
+ # solution: '**/*.sln'
+  #buildPlatform: 'Any CPU'
+  #buildConfiguration: 'Release'
 
+Steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
