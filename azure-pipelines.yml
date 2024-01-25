@@ -15,34 +15,18 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
+- task: NuGetRestore
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    projects: '**/*.sln'
+    feedsToUse: 'select'
 
-- task: VSBuild@1
+- task: Build
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: '**/*.sln'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: 'byPrereleaseNumber'
-    majorVersion: '1'
-    minorVersion: '0'
-    patchVersion: '0'
-
-- task: DotNetCoreCLI@2
+- task: Publish
   inputs:
     command: 'publish'
     publishWebProjects: true
-
