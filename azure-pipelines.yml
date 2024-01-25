@@ -14,19 +14,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: NuGetRestore
+- task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
     projects: '**/*.sln'
     feedsToUse: 'select'
-
-- task: Build
-  inputs:
-    command: 'build'
-    projects: '**/*.sln'
-
-- task: Publish
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
