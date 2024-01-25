@@ -16,24 +16,28 @@ variables:
 steps:
 
 - task: DotNetCoreCLI@2
+  displayName: 'NugetRestore'
   inputs:
     command: 'restore'
     projects: '**/*.sln'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
     projects: '**/*.sln'
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Publish'
   inputs:
     command: 'publish'
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'PublishBuildArtifact'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'DotnetCoreSampleApp'
